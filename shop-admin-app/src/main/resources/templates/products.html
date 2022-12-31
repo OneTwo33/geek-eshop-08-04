@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/navigation.html :: head">
+</head>
+
+<body>
+
+<nav th:replace="fragments/navigation.html :: navigation">
+</nav>
+
+<div class="container">
+    <div class="row py-2">
+        <div class="col-12">
+            <a class="btn btn-primary" th:href="@{/product/new}">Add Product</a>
+        </div>
+
+        <div class="col-12">
+            <table class="table table-bordered my-2">
+                <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${products.hasContent()}" th:each="product: ${products.content}">
+                    <th scope="row" th:text="${product.id}">1</th>
+                    <td th:text="${product.name}">Product</td>
+                    <td th:text="${product.category.name}">Category</td>
+                    <td th:text="${product.price}">$100</td>
+                    <td>
+                        <a class="btn btn-success" th:href="@{/product/{id}(id = ${product.id})}"><i
+                                class="fas fa-edit"></i></a>
+                        <form class="d-inline" th:method="delete" th:action="@{/product/{id}(id = ${product.id})}">
+                            <button type="submit" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+                        </form>
+                    </td>
+                </tr>
+
+                <tr th:unless="${products.hasContent()}">
+                    <td colspan="4">No data</td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+        <div th:replace="fragments/paginator.html :: paginator(${products}, ~{fragments/paginator.html :: productPaginatorLink})">
+        </div>
+    </div>
+</div>
+
+<th:block th:replace="fragments/scripts.html :: scripts">
+</th:block>
+
+</body>
+</html>
