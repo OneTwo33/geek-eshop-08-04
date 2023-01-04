@@ -79,7 +79,8 @@ public class ProductController {
             model.addAttribute("categories", categoryService.findAll());
             return "product_form";
         }
-        productService.save(product);
+//        productService.save(product);
+        fullTextSearchIndexedDecorator.save(product);
         return "redirect:/product";
     }
 
