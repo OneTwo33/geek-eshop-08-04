@@ -3,6 +3,7 @@ package ru.onetwo33.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import ru.onetwo33.controller.dto.ProductDto;
 import ru.onetwo33.service.CategoryService;
+import ru.onetwo33.service.FullTextSearchIndexedDecorator;
 import ru.onetwo33.service.ProductService;
 
 import javax.validation.Valid;
@@ -23,14 +25,16 @@ public class ProductController {
     private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
 
     private final ProductService productService;
-
     private final CategoryService categoryService;
+    private final FullTextSearchIndexedDecorator fullTextSearchIndexedDecorator;
 
     @Autowired
-    public ProductController(ProductService productService,
-                             CategoryService categoryService) {
+    public ProductController(@Qualifier("productServiceImpl") ProductService productService,
+                             CategoryService categoryService,
+                             FullTextSearchIndexedDecorator fullTextSearchIndexedDecorator) {
         this.productService = productService;
         this.categoryService = categoryService;
+        this.fullTextSearchIndexedDecorator = fullTextSearchIndexedDecorator;
     }
 
     @GetMapping
@@ -75,7 +79,8 @@ public class ProductController {
             model.addAttribute("categories", categoryService.findAll());
             return "product_form";
         }
-        productService.save(product);
+//        productService.save(product);
+        fullTextSearchIndexedDecorator.save(product);
         return "redirect:/product";
     }
 
