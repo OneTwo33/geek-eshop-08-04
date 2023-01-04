@@ -8,7 +8,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "products")
-public class Product {
+public class Product implements Observer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,12 +32,13 @@ public class Product {
     public Product() {
     }
 
-    public Product(Long id, String name, String description, BigDecimal price, Category category) {
+    public Product(Long id, String name, String description, BigDecimal price, Category category, Observable o) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
         this.category = category;
+        o.registerObserver(this);
     }
 
     public Long getId() {
@@ -86,6 +87,11 @@ public class Product {
 
     public void setPictures(List<Picture> pictures) {
         this.pictures = pictures;
+    }
+
+    @Override
+    public void update(Product product) {
+        System.out.println("Был добавлен новый продукт " + product.getName());
     }
 
     @Override
