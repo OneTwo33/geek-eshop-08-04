@@ -1,7 +1,6 @@
 package ru.onetwo33.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -56,7 +55,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public void save(ProductDto productDto) {
+    public Product save(ProductDto productDto) {
         Product product = (productDto.getId() != null) ? productRepository.findById(productDto.getId())
                 .orElseThrow(() -> new NotFoundException("Product not found")) : new Product();
         Category category = categoryRepository.findById(productDto.getCategory().getId())
@@ -81,7 +80,7 @@ public class ProductServiceImpl implements ProductService {
                 }
             }
         }
-        productRepository.save(product);
+        return productRepository.save(product);
     }
 
     @Override
