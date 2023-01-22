@@ -22,17 +22,4 @@
     </nav>
 </div>
 
-<a th:fragment="userPaginatorLink" class="page-link"
-   th:text="${num}"
-   th:href="@{/user(page=${num}, size=${data.size},
-       usernameFilter=${param.usernameFilter}, sortField=${param.sortField})}">1</a>
-
-<a th:fragment="productPaginatorLink" class="page-link"
-   th:text="${num}"
-   th:href="@{/product(page=${num}, size=${data.size})}">1</a>
-
-<a th:fragment="categoryPaginatorLink" class="page-link"
-   th:text="${num}"
-   th:href="@{/category(page=${num}, size=${data.size})}">1</a>
-
 </html>

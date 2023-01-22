@@ -10,7 +10,7 @@ public interface CategoryService {
 
     List<CategoryDto> findAll();
 
-    Page<CategoryDto> findAll(Integer page, Integer size);
+    Page<CategoryDto> findAll(Integer page, Integer size, String sortField);
 
     Optional<CategoryDto> findById(Long id);
 

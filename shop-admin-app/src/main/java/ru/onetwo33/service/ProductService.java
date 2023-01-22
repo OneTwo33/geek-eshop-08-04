@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface ProductService {
 
-    Page<ProductDto> findAll(Integer page, Integer size);
+    Page<ProductDto> findAll(Integer page, Integer size, String sortField);
 
     Optional<ProductDto> findById(Long id);
 

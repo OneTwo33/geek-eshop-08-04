@@ -34,8 +34,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Page<ProductDto> findAll(Integer page, Integer size) {
-        return productRepository.findAll(PageRequest.of(page, size, Sort.by("id")))
+    public Page<ProductDto> findAll(Integer page, Integer size, String sortField) {
+        return productRepository.findAll(PageRequest.of(page, size, Sort.by(sortField)))
                 .map(product -> new ProductDto(product.getId(),
                         product.getName(),
                         product.getDescription(),

@@ -23,8 +23,8 @@ public class FullTextSearchIndexedDecorator implements ProductService {
     }
 
     @Override
-    public Page<ProductDto> findAll(Integer page, Integer size) {
-        return wrappedProductService.findAll(page, size);
+    public Page<ProductDto> findAll(Integer page, Integer size, String sortField) {
+        return wrappedProductService.findAll(page, size, sortField);
     }
 
     @Override

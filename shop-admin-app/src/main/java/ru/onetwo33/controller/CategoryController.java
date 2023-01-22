@@ -30,10 +30,12 @@ public class CategoryController {
 
     @GetMapping
     public String listPage(@RequestParam("page") Optional<Integer> page,
-                           @RequestParam("size") Optional<Integer> size, Model model) {
+                           @RequestParam("size") Optional<Integer> size,
+                           @RequestParam("sortField") Optional<String> sortField, Model model) {
         model.addAttribute("categories", categoryService.findAll(
                 page.orElse(1) - 1,
-                size.orElse(5)));
+                size.orElse(5),
+                sortField.filter(fld -> !fld.isBlank()).orElse("id")));
         return "categories";
     }
 

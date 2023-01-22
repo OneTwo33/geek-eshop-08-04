@@ -19,8 +19,8 @@
             <table class="table table-bordered my-2">
                 <thead>
                 <tr>
-                    <th scope="col">Id</th>
-                    <th scope="col">Name</th>
+                    <th scope="col" th:replace="fragments/sort_header :: sort_header_category('Id', 'id')"></th>
+                    <th scope="col" th:replace="fragments/sort_header :: sort_header_category('Name', 'name')"></th>
                     <th scope="col">Actions</th>
                 </tr>
                 </thead>
@@ -45,7 +45,10 @@
             </table>
         </div>
 
-        <div th:replace="fragments/paginator.html :: paginator(${categories}, ~{fragments/paginator.html :: categoryPaginatorLink})">
+        <div th:replace="fragments/paginator.html :: paginator(${categories}, ~{::paginatorLink})">
+            <a th:fragment="paginatorLink" class="page-link"
+               th:text="${num}"
+               th:href="@{/category(page=${num}, size=${data.size}, sortField=${param.sortField})}">1</a>
         </div>
     </div>
 </div>

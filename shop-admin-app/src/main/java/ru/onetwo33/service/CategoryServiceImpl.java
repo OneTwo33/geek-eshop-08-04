@@ -31,8 +31,8 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Page<CategoryDto> findAll(Integer page, Integer size) {
-        return categoryRepository.findAll(PageRequest.of(page, size, Sort.by("id")))
+    public Page<CategoryDto> findAll(Integer page, Integer size, String sortField) {
+        return categoryRepository.findAll(PageRequest.of(page, size, Sort.by(sortField)))
                 .map(category -> new CategoryDto(category.getId(), category.getName()));
     }
 
